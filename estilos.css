@@ -8,7 +8,7 @@
     .sectionmapa{
         align-items: center;
         width:100%;
-        height: 100%;
+        height: 150%;
         padding: 20px;
         margin: 0 auto;
         background: linear-gradient(to bottom, 
@@ -27,8 +27,8 @@
         
     }
     .map{
-        width: 70%;
-        height:1p;
+        width: 100%;
+        height:700px;
         
     }
     /*FIN INDEX.PHP*/

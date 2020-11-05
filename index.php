@@ -4,14 +4,20 @@
 
       $consulta = "SELECT latitud, longitud, nombreciudad from ciudad WHERE idciudad = 81";
       $resultado = $conexion -> query($consulta);
-      $latitud;
-      $longitud;
-      $ciudad;
-      while($producto2=mysqli_fetch_array($resultado)){
-          $latitud= $producto2["latitud"];                    
-          $longitud= $producto2["longitud"];
-          $ciudad = $producto2["nombreciudad"];
+      
+      while($result=mysqli_fetch_array($resultado)){
+          $latitud= $result["latitud"];                    
+          $longitud= $result["longitud"];
+          $ciudad = $result["nombreciudad"];
       }
+
+      $consulta = "SELECT idcategoria, nombrecategoria from categoria ";
+      $resultado = $conexion -> query($consulta);
+      while($result=mysqli_fetch_array($resultado)){
+        $idcategoria[]= $result["idcategoria"];                    
+        $nombrecategoria[]= $result["nombrecategoria"];
+      }
+
       if(!isset($_SESSION['email'])){
         //header('Location: login.php');
         $inicio= "no";
@@ -81,26 +87,21 @@
 </header>
 <main>
   <div class="sectionmapa" id="sectionmapa">
-
-    <!-- BUSCADOR DE LISTA -->
+                      
+    <!-- Categorias de productos -->
         <div id="list-example" class="list-group">
-      <a class="list-group-item list-group-item-action" href="#list-item-1"><?php echo $ciudad?></a>
-      <a class="list-group-item list-group-item-action" href="#list-item-2">Item2</a>
-      <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
-      <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
-    </div>
-    <script>
-        $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myList li").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script> 
+          <h1 style="color:white">Categorias</h1>
+          <?php 
+            $cantidadcategorias = sizeof($nombrecategoria);
+            for ($i=0; $i<$cantidadcategorias; $i++){
+          ?>
+            <a class="list-group-item list-group-item-action" href="#list-item-1"><?php echo $nombrecategoria[$i]?>
+          <?php } ?>
+
+        </div>
+    
   
-    <iframe id="map" class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12777.876655723716!2d<?php echo $latitud;?>!3d<?php echo $longitud;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2scl!4v1596088006295!5m2!1ses!2scl" width="600" height="450" frameborder="0" style="border:1;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    <iframe id="map" class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12777.876655723716!2d<?php echo $latitud;?>!3d<?php echo $longitud;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2scl!4v1596088006295!5m2!1ses!2scl"  frameborder="0" style="border:1;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
   
   </div>
 <section >
