@@ -34,8 +34,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documento</title>
+    <title>Inicio</title>
+     
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
+    <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="js/jquery.gmaps.js"></script>
 
+
+    <script src="js/filtro.js"></script>
+    <script src="js/localizacion.js"></script>
+    <link href="js/jquery.gmaps.css" rel="stylesheet" />
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -91,32 +100,54 @@
     <!-- Categorias de productos -->
         <div id="list-example" class="list-group">
           <h1 style="color:white">Categorias</h1>
-          <?php 
-            $cantidadcategorias = sizeof($nombrecategoria);
-            for ($i=0; $i<$cantidadcategorias; $i++){
-          ?>
-            <a class="list-group-item list-group-item-action" href="#list-item-1"><?php echo $nombrecategoria[$i]?>
-          <?php } ?>
+            <?php 
+              $cantidadcategorias = sizeof($nombrecategoria);
+              for ($i=0; $i<$cantidadcategorias; $i++){
+            ?>
+                <a class="list-group-item list-group-item-action" href="#list-item-<?php echo $idcategoria[$i] ?>"><?php echo $nombrecategoria[$i];?>
+            <?php } ?>
 
         </div>
-    
+    <!-- <script>
+        $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myList li").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>  -->
   
-    <iframe id="map" class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12777.876655723716!2d<?php echo $latitud;?>!3d<?php echo $longitud;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2scl!4v1596088006295!5m2!1ses!2scl"  frameborder="0" style="border:1;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    <iframe id="mapa" class="mapa" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12777.876655723716!2d<?php echo $latitud;?>!3d<?php echo $longitud;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2scl!4v1596088006295!5m2!1ses!2scl"  frameborder="0" style="border:1;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
   
   </div>
-<section >
-    
 
-    
-
-   
-                
-    
-         
-
-</section>
   </main>
 
+
+  <script>
+    "use strict";
+    var marker; 
+    function initMap() {
+        const myLatLng = {
+            lat: 20,
+            lng: 73
+        };
+        const map = new google.maps.Map(document.getElementById("mapa"), {
+          zoom: 50,
+          center: myLatLng,
+         
+        }); 
+
+        marker = new google.maps.Marker({
+                position: myLatLng,
+                map,
+            });    
+
+        }
+        
+  </script>
 
 
 
