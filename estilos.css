@@ -27,10 +27,65 @@
         
     }
     .mapa{
-        width: 100%;
+        width: 60%;
         height:600px;
         
     }
+
+    .contenedor{
+        margin:auto;
+        padding: var(--margenes) 0;
+        width: 70%;
+        text-align: center;
+        overflow: hidden;
+        margin-top:50px;
+        margin-bottom:50px;
+    }
+    .botoncard{
+
+        padding: 7px;
+        font-size:20px;
+        margin-top:5px;
+        margin-bottom:5px;
+        text-decoration: none ;
+        border-style: inherit;
+        background-image: url(img/fondo2.jpg);
+        color: white;
+        border-style: hidden;
+    }
+    
+    
+    .card{
+        display: -webkit-box;
+        justify-content: space-around;
+        border-style: hidden;
+    }
+   
+    .content-card{
+        margin-left: 20px;
+        height: 100%;
+        box-shadow: 0 0 6px rgba(2,59,47,.9);
+        justify-content: center;
+        margin-top:30px; 
+        height:400px; 
+        width:30%;
+        align-items: center;
+    }
+    .content-card img{
+        width: 100%;
+        height: max-content;
+        object-fit: cover;
+    }
+  
+    .texto-team{
+        height:20%;
+        width: 100%;
+        padding: var(--espacios) 0;
+    }
+
+    
+
+
     /*FIN INDEX.PHP*/
 
     .nav1{
@@ -120,8 +175,14 @@
         visibility: hidden;
         display: none;
     }
+    .team{
+        visibility: hidden;
+        display: none;
+    }
+
     .mapa{
         width: 100%;
+        height: 850px;
     }
 }
 

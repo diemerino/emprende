@@ -35,14 +35,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu7OySjdMI03V2hgmYOjm_80wTHNuUqOE&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
      
     <script src="js/jquery.js"></script>
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="js/jquery.gmaps.js"></script>
 
 
-    <script src="js/filtro.js"></script>
+    <!-- <script src="js/filtro.js"></script> -->
     <script src="js/localizacion.js"></script>
     <link href="js/jquery.gmaps.css" rel="stylesheet" />
     
@@ -55,10 +60,7 @@
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="estilos.css">
 
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu7OySjdMI03V2hgmYOjm_80wTHNuUqOE&callback=initMap&libraries=&v=weekly"
-      defer
-    ></script>
+    
 
 
 
@@ -97,31 +99,94 @@
 <main>
   <div class="sectionmapa" id="sectionmapa">
                       
-    <!-- Categorias de productos -->
-        <div id="list-example" class="list-group">
+        <!-- Categorias de productos -->
+        <div id="list-example" class="list-group" style="position:top">
           <h1 style="color:white">Categorias</h1>
+
+
+          <a class="list-group-item list-group-item-action active" href="#list-item-0">Todos
             <?php 
-              $cantidadcategorias = sizeof($nombrecategoria);
-              for ($i=0; $i<$cantidadcategorias; $i++){
+              for ($i=0; $i<sizeof($nombrecategoria); $i++){
             ?>
-                <a class="list-group-item list-group-item-action" href="#list-item-<?php echo $idcategoria[$i] ?>"><?php echo $nombrecategoria[$i];?>
+                <a class="list-group-item list-group-item-action" href="#list-item-<?php echo $idcategoria[$i] ?>"><?php echo $nombrecategoria[$i];?></a>
             <?php } ?>
 
+            <script>
+              $('.list-group-item').on('click', function (e) {
+                        console.log('wenas');
+                        e.preventDefault()
+                        $(this).addClass('active').siblings().removeClass('active');
+                      })
+            </script>
+
         </div>
-    <!-- <script>
-        $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myList li").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-        });
-    </script>  -->
+      <div id="mapa" class="mapa">
   
-    <iframe id="mapa" class="mapa" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12777.876655723716!2d<?php echo $latitud;?>!3d<?php echo $longitud;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2scl!4v1596088006295!5m2!1ses!2scl"  frameborder="0" style="border:1;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-  
+        <iframe id="mapa" class="mapa" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12777.876655723716!2d<?php echo $latitud;?>!3d<?php echo $longitud;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2scl!4v1596088006295!5m2!1ses!2scl"  frameborder="0" style="border:1;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      </div>
   </div>
+
+
+          <?php 
+          
+          $consulta = "SELECT P.idproducto, P.nombreproducto, P.precioproducto, P.rutaimagen, U.nombres, C.nombrecategoria
+            from categoria C, producto P, usuario U WHERE P.idusuario=1";
+          $resultado = $conexion -> query($consulta);
+          while($result=mysqli_fetch_array($resultado)){
+            $nombreproducto[]= $result["nombreproducto"];
+            $precio[]=$result["precioproducto"];
+            $vendedor[] = $result["nombres"];
+            $rutaimagen[]=$result["rutaimagen"];                    
+            $nombrecategoria[]= $result["nombrecategoria"]; 
+          }
+          ?>
+        <section class="team contenedor" >
+
+        <h3>Destacados</h3>
+            <p class="after">Estas productos son destacados en </p>
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="img/papasfritas.jpg" alt="First slide"style="max-height:300px; object-fit: cover;">
+              <div class="carousel-caption d-none d-md-block">
+                <h5><?php echo $nombreproducto[0].'/ $'.$precio[0]?></h5>
+                <p><?php echo $nombrecategoria[0]?></p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="img/papasfritas.jpg" alt="Second slide"style="max-height:300px; object-fit: cover;">
+              <div class="carousel-caption d-none d-md-block" >
+                <h5><?php echo $nombreproducto[0].'/ $'.$precio[0]?></h5>
+                <p><?php echo $nombrecategoria[0]?></p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100"  src="img/papasfritas.jpg" alt="Third slide" style="max-height:300px; object-fit: cover;">
+              <div class="carousel-caption d-none d-md-block">
+                <h5><?php echo $nombreproducto[0].'/ $'.$precio[0]?></h5>
+                <p><?php echo $nombrecategoria[0]?></p>
+              </div>
+            </div>
+          </div>
+
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+             
+        </section>
+
+
 
   </main>
 
@@ -131,11 +196,12 @@
     var marker; 
     function initMap() {
         const myLatLng = {
-            lat: 20,
-            lng: 73
+            lat: -36.822827856293166,
+            lng: -73.01187817007303
         };
+        
         const map = new google.maps.Map(document.getElementById("mapa"), {
-          zoom: 50,
+          zoom: 15,
           center: myLatLng,
          
         }); 
